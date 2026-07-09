@@ -23,7 +23,7 @@ class UsersImport implements ToModel, WithProgressBar
 {
     use Importable;
 
-    public function model(array $row)
+    public function model(array $row): User|null
     {
         return new User([
             'name'     => $row[0],

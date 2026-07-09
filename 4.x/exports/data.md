@@ -35,7 +35,7 @@ use Maatwebsite\Excel\Concerns\FromCollection;
 
 class UsersExport implements FromCollection
 {
-    public function collection()
+    public function collection(): Collection
     {
         // All User models.
         return User::all();
@@ -56,7 +56,7 @@ class UsersExport implements FromCollection
     ) {
     }
 
-    public function collection()
+    public function collection(): Collection
     {
         return User::query()
             ->join('orders', 'users.id', '=', 'orders.user_id')
@@ -81,7 +81,7 @@ custom collection:
 ```php
 class InvoicesExport implements FromCollection
 {
-    public function collection()
+    public function collection(): Collection
     {
         return new Collection([
             [1, 2, 3],
@@ -101,7 +101,7 @@ use Maatwebsite\Excel\Concerns\FromCollection;
 
 class InvoicesExport implements FromCollection
 {
-    public function collection()
+    public function collection(): LazyCollection
     {
         return Invoice::query()->lazy();
     }
@@ -151,7 +151,7 @@ class InvoicesExport implements FromQuery
 {
     use Exportable;
 
-    public function query()
+    public function query(): Builder
     {
         return Invoice::query();
     }
@@ -225,6 +225,35 @@ class DataExport implements FromGenerator
     }
 }
 ```
+
+:::tip 
+Using Queue with FromGenerator is not supported. In case a queue is desired, we recommend wrapping the export file in a job, then using `->store`
+:::
+
+## Scout
+
+For exports based on a Laravel Scout query, use the `FromScout` concern.
+
+```php
+namespace App\Exports;
+
+use Maatwebsite\Excel\Concerns\Exportable;
+use Maatwebsite\Excel\Concerns\FromScout;
+
+class ProductsExport implements FromScout
+{
+    use Exportable;
+
+    public function query(): \Laravel\Scout\Builder
+    {
+        return Product::search('*');
+    }
+}
+```
+
+:::tip
+`FromScout` requires `laravel/scout` to be installed.
+:::
 
 ## Generic data manipulations
 

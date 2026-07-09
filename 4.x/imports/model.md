@@ -12,7 +12,7 @@ use Maatwebsite\Excel\Concerns\ToModel;
 
 class UsersImport implements ToModel
 {
-    public function model(array $row)
+    public function model(array $row): User|null
     {
         return new User([
             'name' => $row[0],
@@ -34,10 +34,7 @@ In case you want to upsert models, instead of inserting, you can implement the `
 ```php
 class UsersImport implements ToModel, WithUpserts
 {
-    /**
-     * @return string|array
-     */
-    public function uniqueBy()
+    public function uniqueBy(): string|array
     {
         return 'email';
     }
@@ -57,10 +54,7 @@ By default, `upsert`, in case of updating, will update all columns that match mo
 ```php
 class UsersImport implements ToModel, WithUpserts, WithUpsertColumns
 {
-    /**
-     * @return array
-     */
-    public function upsertColumns()
+    public function upsertColumns(): array
     {
         return ['name', 'role'];
     }
@@ -69,7 +63,7 @@ class UsersImport implements ToModel, WithUpserts, WithUpsertColumns
 
 In this example, if a user already exists, only "name" and "role" columns will be updated.
 
-## Skipping rows
+## Skipping specific rows
 
 In case you want to skip a row, you can return null. 
 

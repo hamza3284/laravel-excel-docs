@@ -12,12 +12,12 @@ If you use the software commercially and need elaborate support or need it urgen
 
 Versions will be supported for a limited amount of time.
 
-| Version | Laravel Version | Php Version | Support |
-|---- |----|----|----|
-| 4.x | ^8.0 |  ^7.4\|^8.0 | New features |
-| 3.1 | ^5.8\|^6.0\|^7.0\|^8.0 |  ^7.2\|^8.0 | Support till ... |
-| 3.0 | ^5.5 |  ^7.0 | Unsupported since 31-12-2018 |
-| 2.1 | <=5.6 | <=7.0 | Unsupported since 15-5-2018 |
+| Version | Laravel Version | Php Version | Support                      |
+|---------|-----------------|-------------|------------------------------|
+| 4.0     | ^12\|^13        | ^8.3        | New features                 |
+| 3.1     | >=5.8 \| <=13.x | ^7.2\|^8.0  | Support till ...             |
+| 3.0     | ^5.5            | ^7.0        | Unsupported since 31-12-2018 |
+| 2.1     | <=5.6           | <=7.0       | Unsupported since 15-5-2018  |
 
 ::: warning PHP version support
 Support for PHP versions will only be maintained until the end-of-life of that PHP version.
@@ -28,7 +28,7 @@ Before you request support, please check the following:
 * Attempt to replicate the problem, to ensure that it wasn't a coincidental incident.
 * Check to make sure your support request isn't already present within the project.
 * Check the pull requests tab to ensure that the bug doesn't have a fix in progress.
-* Use one of the [issue templates](https://github.com/SpartnerNL/Laravel-Excel/tree/3.1/.github/ISSUE_TEMPLATE).
+* Use one of the [issue templates](https://github.com/SpartnerNL/Laravel-Excel/tree/master/.github/ISSUE_TEMPLATE).
 
 Filling out the template is required. Issues that do not include enough information might not  be picked up. Please write in English (or Dutch).
 

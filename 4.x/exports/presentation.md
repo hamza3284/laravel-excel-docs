@@ -68,7 +68,7 @@ class UsersExport implements FromQuery, WithMapping
     /**
     * @var User $user
     */
-    public function map($user): array
+    public function map(mixed $user): array
     {
         return [
             $user->id,
@@ -143,6 +143,23 @@ class UsersExport implements WithHeadings
 }
 ```
 
+If you need multiple heading rows, return nested arrays from the `headings()` method:
+
+```php
+use Maatwebsite\Excel\Concerns\WithHeadings;
+
+class UsersExport implements WithHeadings
+{
+    public function headings(): array
+    {
+        return [
+            ['First row', 'First row'],
+            ['Second row', 'Second row'],
+        ];
+    }
+}
+```
+
 ## Styling
 
 ### Column styling
@@ -189,7 +206,7 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class UsersExport implements WithStyles
 {
-    public function styles(Worksheet $sheet)
+    public function styles(Worksheet $sheet): array
     {
         return [
             // Style the first row as bold text.
@@ -217,7 +234,7 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class UsersExport implements WithStyles
 {
-    public function styles(Worksheet $sheet)
+    public function styles(Worksheet $sheet): void
     {
         $sheet->getStyle('B2')->getFont()->setBold(true);
     }
@@ -276,6 +293,61 @@ class UsersExport implements WithColumnWidths
 ```
 
 The `WithColumnWidths` concern can be used together with `ShouldAutoSize`. Only the columns with explicit widths won't be autosized.
+
+## Custom Value Binder
+
+By default Laravel Excel uses PhpSpreadsheet's default value binder to intelligently format a cell's value when writing it. You may override this behavior by implementing the `WithCustomValueBinder` concern and the `bindValue` method. Your export class may also extend `DefaultValueBinder` to fall back to the default behavior.
+
+```php
+namespace App\Exports;
+
+use PhpOffice\PhpSpreadsheet\Cell\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
+use PhpOffice\PhpSpreadsheet\Cell\DefaultValueBinder;
+use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\WithCustomValueBinder;
+
+class UsersExport extends DefaultValueBinder implements WithCustomValueBinder, FromCollection
+{
+    public function bindValue(Cell $cell, mixed $value): bool
+    {
+        if (is_numeric($value)) {
+            $cell->setValueExplicit($value, DataType::TYPE_NUMERIC);
+
+            return true;
+        }
+
+        // else return default behavior
+        return parent::bindValue($cell, $value);
+    }
+}
+```
+
+### Available DataTypes
+
+* `PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING`
+* `PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_FORMULA`
+* `PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_NUMERIC`
+* `PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_BOOL`
+* `PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_NULL`
+* `PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_INLINE`
+* `PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_ERROR`
+
+### Default Value Binder
+
+If you want to use one value binder for all your exports, you can configure the default value binder in the config.
+
+In `config/excel.php`:
+
+```php
+'value_binder' => [
+    'default' => Maatwebsite\Excel\DefaultValueBinder::class,
+],
+```
+
+:::warning
+`WithCustomValueBinder` is only supported for **exports**. It has no effect when used on an import class.
+:::
 
 ## Filters
 

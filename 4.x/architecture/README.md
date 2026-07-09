@@ -30,14 +30,14 @@ use Maatwebsite\Excel\Concerns\FromCollection;
 
 class UsersExport implements FromCollection
 {
-    public function collection()
+    public function collection(): Collection
     {
         return User::all();
     }
 }
 ```
 
-If you want to read more about export objects, go to the architecture page of [export objects](/3.1/architecture/objects.html).
+If you want to read more about export objects, go to the architecture page of [export objects](/4.x/architecture/objects.html).
 
 ### Passing on the Export object
 
@@ -129,7 +129,7 @@ class UsersExport implements FromCollection
 {
     use Exportable;
 
-    public function collection()
+    public function collection(): Collection
     {
         return User::all();
     }
@@ -142,7 +142,7 @@ You can now download the export without the need for the `facade` or `Excel` man
 return (new UsersExport)->download('users.xlsx');
 ```
 
-Read more about the exportable trait in the [exportables](/3.1/exports/exportables.html) docs.
+Read more about the exportable trait in the [exporting](/4.x/exports/exporting.html) docs.
 
 ### Handling the Export object
 
@@ -218,7 +218,7 @@ use Maatwebsite\Excel\Concerns\ToCollection;
 
 class UsersImport implements ToCollection
 {
-    public function collection(Collection $rows)
+    public function collection(Collection $rows): void
     {
         foreach ($rows as $row) 
         {
@@ -230,7 +230,7 @@ class UsersImport implements ToCollection
 }
 ```
 
-If you want to read more about imports objects, go to the architecture page of [imports objects](/3.1/architecture/objects.html).
+If you want to read more about imports objects, go to the architecture page of [imports objects](/4.x/architecture/objects.html).
 
 ### Passing on the Import object
 
@@ -286,7 +286,7 @@ You can now import without the need for the `facade` or `Excel` manager.
 (new UsersImport)->import('users.xlsx');
 ```
 
-Read more about the importable trait in the [importables](/3.1/imports/importables.html) docs.
+Read more about the importable trait in the [importables](/4.x/imports/importables.html) docs.
 
 ### Handling the Import object
 

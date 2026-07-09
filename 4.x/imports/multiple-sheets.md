@@ -33,7 +33,7 @@ use Maatwebsite\Excel\Concerns\ToCollection;
 
 class FirstSheetImport implements ToCollection
 {
-    public function collection(Collection $rows)
+    public function collection(Collection $rows): void
     {
         //
     }
@@ -203,7 +203,7 @@ use Maatwebsite\Excel\Concerns\HasReferencesToOtherSheets;
 
 class FirstSheetImport implements ToArray, HasReferencesToOtherSheets
 {
-    public function array(array: $row)
+    public function array(array $array): void
     {
         
     }
@@ -217,7 +217,7 @@ use Maatwebsite\Excel\Concerns\WithCalculatedFormulas;
 
 class SecondSheetImport implements ToArray, WithCalculatedFormulas
 {
-    public function array(array: $row)
+    public function array(array $array): void
     {
         
     }

@@ -36,7 +36,7 @@ use Maatwebsite\Excel\Concerns\FromCollection;
 
 class UsersExport implements FromCollection
 {
-    public function collection()
+    public function collection(): Collection
     {
         return User::all();
     }
@@ -71,7 +71,7 @@ use Maatwebsite\Excel\Concerns\WithTitle;
 
 class AdminsSheet implements FromCollection, WithTitle
 {
-    public function collection()
+    public function collection(): Collection
     {
         return User::where('is_admin', true)->get();
     }

@@ -17,7 +17,7 @@ use Maatwebsite\Excel\Concerns\WithBatchInserts;
 
 class UsersImport implements ToModel, WithBatchInserts
 {
-    public function model(array $row)
+    public function model(array $row): User
     {
         return new User([
             'name' => $row[0],
@@ -46,7 +46,7 @@ For batch upserts, you can additionally implement the `WithUpserts` concern.
 ```php
 class UsersImport implements ToModel, WithBatchInserts, WithUpserts
 {
-    public function model(array $row)
+    public function model(array $row): User
     {
         return new User([
             'name' => $row[0],
@@ -58,7 +58,7 @@ class UsersImport implements ToModel, WithBatchInserts, WithUpserts
         return 1000;
     }
 
-    public function uniqueBy()
+    public function uniqueBy(): string|array
     {
         return 'email';
     }
@@ -70,3 +70,26 @@ In the example above, if a user already exists with the same email, the row will
 :::warning
 All databases except SQL Server require the `uniqueBy` columns to have a "primary" or "unique" index.
 :::
+
+## Skipping duplicate rows
+
+For skipping duplicate models, you can additionally implement the `WithSkipDuplicates` concern.
+
+```php
+class UsersImport implements ToModel, WithBatchInserts, WithSkipDuplicates
+{
+    public function model(array $row): User
+    {
+        return new User([
+            'name' => $row[0],
+        ]);
+    }
+    
+    public function batchSize(): int
+    {
+        return 1000;
+    }
+}
+```
+
+In the example above, if a user already exists with the same primary or unique key, the row will be ignored. Behind the scenes, this feature uses the Laravel `insertOrIgnore` method to insert records while ignoring duplicates, preventing any errors that would normally occur due to duplicate entries.

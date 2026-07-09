@@ -16,7 +16,7 @@ use Maatwebsite\Excel\Concerns\WithChunkReading;
 
 class UsersImport implements ToModel, WithChunkReading, ShouldQueue
 {
-    public function model(array $row)
+    public function model(array $row): User|null
     {
         return new User([
             'name' => $row[0],
@@ -185,7 +185,7 @@ class ImportClass implements FromQuery
         return now()->addSeconds(5);
     }
 
-    public function query()
+    public function query(): Builder
     {
         // ...
     }

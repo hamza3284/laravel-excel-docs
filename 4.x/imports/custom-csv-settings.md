@@ -12,7 +12,7 @@ use Maatwebsite\Excel\Concerns\WithCustomCsvSettings;
 
 class UsersImport implements ToModel, WithCustomCsvSettings
 {
-    public function model(array $row)
+    public function model(array $row): User|null
     {
         return new User([
             'name' => $row['0'],

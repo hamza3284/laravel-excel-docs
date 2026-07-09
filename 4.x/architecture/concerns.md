@@ -19,7 +19,7 @@ use Maatwebsite\Excel\Concerns\FromCollection;
 
 class UsersExport implements FromCollection
 {
-    public function collection()
+    public function collection(): Collection
     {
         return User::all();
     }

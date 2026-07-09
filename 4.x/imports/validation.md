@@ -109,9 +109,6 @@ By adding `customValidationMessages()` method to your import, you can specify cu
 If you include the `:attribute` and `:input` placeholders, they will be substituted with their actual values at runtime.
 
 ```php
-/**
-* @return array
-*/
 public function rules(): array
 {
     return [
@@ -119,10 +116,7 @@ public function rules(): array
     ];
 }
 
-/**
- * @return array
- */
-public function customValidationMessages()
+public function customValidationMessages(): array
 {
     return [
         '1.in' => 'Custom message for :attribute with input :input.',
@@ -135,9 +129,6 @@ public function customValidationMessages()
 By adding `customValidationAttributes()` method to your import, you can specify custom attribute names for each column.
 
 ```php
-/**
-* @return array
-*/
 public function rules(): array
 {
     return [
@@ -145,10 +136,7 @@ public function rules(): array
     ];
 }
 
-/**
- * @return array
- */
-public function customValidationAttributes()
+public function customValidationAttributes(): array
 {
     return ['1' => 'email'];
 }
@@ -402,7 +390,7 @@ Sometimes data may not pass validation directly, but still be valid. When this h
 ```php
 class UsersImport implements WithValidation
 {
-    public function prepareForValidation($data, $index)
+    public function prepareForValidation(array $data, int $index): array
     {
         $data['email'] = $data['email'] ?? $this->myOtherWayOfFindingTheEmail($data);
         
@@ -421,7 +409,7 @@ You can use `$validator->getData()` to get access to the data under validation
 ```php
 class UsersImport implements WithValidation
 {
-    public function withValidator($validator)
+    public function withValidator(\Illuminate\Validation\Validator $validator): void
     {
         $validator->after(function ($validator) {
             if ($this->somethingElseIsInvalid()) {

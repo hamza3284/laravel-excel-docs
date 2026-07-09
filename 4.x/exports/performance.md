@@ -17,7 +17,7 @@ Most important part of performance is the amount of data that is held in memory.
 ### Limiting data
 
 ```php
-public function query()
+public function query(): Builder
 {
     return User::query()
         ->with('role')
@@ -28,7 +28,7 @@ public function query()
 ### Joining data
 
 ```php
-public function query()
+public function query(): Builder
 {
     return User::query()
         ->innerJoin('roles')
@@ -39,7 +39,7 @@ public function query()
 ### Skipping Eloquent hydration
 
 ```php
-public function query()
+public function query(): Builder
 {
     return DB
         ::table('users')
@@ -51,7 +51,7 @@ public function query()
 ### Using LazyCollections/Generators
 
 ```php
-public function collection()
+public function collection(): LazyCollection
 {
     return DB::table('users')->select('id', 'name', 'email')->lazy();
 }

@@ -46,7 +46,7 @@ class UsersImport implements WithEvents
         ];
     }
     
-    public static function afterSheet(AfterSheet $event) 
+    public static function afterSheet(AfterSheet $event): void
     {
         //
     }
@@ -77,22 +77,22 @@ class UsersImport implements WithEvents
 {
     use Importable, RegistersEventListeners;
     
-    public static function beforeImport(BeforeImport $event)
+    public static function beforeImport(BeforeImport $event): void
     {
         //
     }
 	
-    public static function afterImport(AfterImport $event)
+    public static function afterImport(AfterImport $event): void
     {
         //
     }
 
-    public static function beforeSheet(BeforeSheet $event)
+    public static function beforeSheet(BeforeSheet $event): void
     {
         //
     }
 
-    public static function afterSheet(AfterSheet $event)
+    public static function afterSheet(AfterSheet $event): void
     {
         //
     }
@@ -131,6 +131,7 @@ Sheet::listen(AfterSheet::class, function () {
 |---- |----| ----|
 |`Maatwebsite\Excel\Events\BeforeImport` | `$event->reader : Reader` | Event gets raised at the start of the process. | 
 | `Maatwebsite\Excel\Events\AfterImport` | `$event->reader : Reader` | Event gets raised at the end of the  process. |
+| `Maatwebsite\Excel\Events\ImportFailed` | `$event->getException() : Throwable` | Event gets raised on failure of the import process. |
 | `Maatwebsite\Excel\Events\BeforeSheet` | `$event->sheet : Sheet` | Event gets raised just after the sheet is created. |
 | `Maatwebsite\Excel\Events\AfterSheet` | `$event->sheet : Sheet` | Event gets raised at the end of the sheet process. |
 

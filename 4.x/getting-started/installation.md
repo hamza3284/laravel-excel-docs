@@ -4,9 +4,9 @@
 
 ## Requirements
 
-* PHP: `^7.4\|^8.0`
-* Laravel: `^8.0`
-* PhpSpreadsheet: `^1.16`
+* PHP: `^8.3`
+* Laravel: `^12.0 || ^13.0`
+* PhpSpreadsheet: `^5.3`
 * PHP extension `php_zip` enabled
 * PHP extension `php_xml` enabled
 * PHP extension `php_gd2` enabled

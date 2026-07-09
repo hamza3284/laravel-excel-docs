@@ -21,7 +21,7 @@ use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
 class UsersImport implements ToModel, WithHeadingRow
 {
-    public function model(array $row)
+    public function model(array $row): User|null
     {
         return new User([
             'name'  => $row['name'],

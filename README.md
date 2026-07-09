@@ -1,1 +1,1 @@
-<meta http-equiv="refresh" content="0;url=/3.1/getting-started/" />
+<meta http-equiv="refresh" content="0;url=/4.x/getting-started/" />

@@ -15,7 +15,7 @@ use Maatwebsite\Excel\Concerns\WithChunkReading;
 
 class UsersImport implements ToModel, WithChunkReading
 {
-    public function model(array $row)
+    public function model(array $row): User|null
     {
         return new User([
             'name' => $row[0],
